@@ -21,5 +21,13 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Depends:
+    reticulate
 Suggests: 
-    covr
+    covr,
+    knitr,
+    kwb.utils,
+    rmarkdown
+Remotes:
+    github::kwb-r/kwb.utils
+VignetteBuilder: knitr

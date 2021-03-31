@@ -1,0 +1,84 @@
+---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+According to [ModelMuse documentation](
+https://water.usgs.gov/nrp/gwsoftware/ModelMuse/Help/index.html?head_and_drawdown_panes.htm)
+`heads` and `drawdowns` will be saved with the following `file extensions`: 
+
+* **heads**: `.fhd` if it is a formatted text file and `.bhd` if it is a binary file. 
+
+* **drawdowns**: `.fdn` if it is a formatted text file and `.bdn` if it is a binary file.
+
+```{r define_paths}
+#remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)
+
+### define paths
+paths_list <- list(
+  root_data = "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW",
+  modflow_output = "<root_data>/ModelData/MF2005",
+  model_name = "MB16",
+  mfout = "<modflow_output>/<model_name>",
+  text_heads = "<mfout>.fhd",
+  text_drawdown = "<mfout>.fdn",
+  binary_cell.by.cell = "<mfout>.cbc",
+  binary_heads = "<mfout>.bhd",
+  binary_drawdown = "<mfout>.bdn"
+)
+
+paths <- kwb.utils::resolve(paths_list)
+
+
+```
+
+## Install flopy
+
+```{r install_flopy, eval = FALSE}
+reticulate::install_miniconda()
+
+### create an environment for installing "flopy" 
+env_name <- "flopy"
+
+reticulate::conda_create(envname = "flopy", packages = "flopy")
+```
+
+## Use flopy 
+
+```{r use_flopy}
+
+reticulate::use_miniconda(condaenv = "flopy", required = TRUE)
+
+pyconfig <- reticulate::py_config()
+pyconfig
+
+reticulate::use_python(python = pyconfig$python, required = TRUE)
+
+## on windows: (try this: https://github.com/rstudio/reticulate/issues/367#issuecomment-432920802)
+if(.Platform$OS.type == "windows") {
+  Sys.setenv(PATH= paste(PATH = pyconfig$pythonpath,
+                         Sys.getenv()["PATH"], sep=";")
+  )
+
+}
+
+extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
+
+str(extended_budget)
+
+```
+
+[flopy.utils.postprocessing](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
+
+
