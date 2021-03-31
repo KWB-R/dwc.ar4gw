@@ -9,9 +9,9 @@ import_flopy(convert = TRUE, ...)
 \arguments{
 \item{convert}{Boolean (default: TRUE); should Python objects be automatically
 converted to their R equivalent? If set to FALSE, you can still manually convert
-Python objects to R via the \code{\link{reticulate::py_to_r}} function.}
+Python objects to R via the \link[reticulate]{py_to_r} function.}
 
-\item{...}{additional arguments passed to \code{\link{reticulate::import}}}
+\item{...}{additional arguments passed to \link[reticulate]{import}}
 }
 \value{
 imports "fl
