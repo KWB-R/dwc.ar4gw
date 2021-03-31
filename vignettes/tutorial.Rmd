@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+is_ghactions <- identical(Sys.getenv("CI"), "true")
+
 ```
 
 According to [ModelMuse documentation](
@@ -39,7 +41,7 @@ paths_list <- list(
 )
 
 paths <- kwb.utils::resolve(paths_list)
-
+paths
 
 ```
 
@@ -56,7 +58,7 @@ reticulate::conda_create(envname = "flopy", packages = "flopy")
 
 ## Use flopy 
 
-```{r use_flopy}
+```{r use_flopy, eval = !is_ghactions}
 
 reticulate::use_miniconda(condaenv = "flopy", required = TRUE)
 
