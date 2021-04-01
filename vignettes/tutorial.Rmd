@@ -235,6 +235,9 @@ gradients <- flopy$utils$postprocessing$get_gradients(
   m = mf,
   nodata = c(-1e+30,1e+30))
 
+
+str(gradients)
+
 summary(gradients)
 
 ```
