@@ -16,9 +16,9 @@ is_ghactions <- identical(Sys.getenv("CI"), "true")
 
 ```
 
-## Prerequistes
+## Install
 
-Install and load the R package `dwc.ar4gw`:
+Install the R package `dwc.ar4gw` by running the following code:
 
 ```{r install_and_load, eval = FALSE}
 ### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)
@@ -35,13 +35,14 @@ if (! require("remotes")) {
 # Install KWB package 'kwb-r/dwc.ar4gw' from GitHub
 remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)
 
-# Load the R packag
-library(dwc.ar4gw)
+
 ```
 
 ## Define paths
 
 ```{r define_paths}
+# Load the R package
+library(dwc.ar4gw)
 
 ### define paths
 paths_list <- list(
@@ -155,9 +156,9 @@ kwb.nextcloud::download_files(href = mf_files$href,
 ```
 
 
+## Flopy
 
-```
-## Install flopy
+### Install flopy
 
 ```{r install_flopy, eval = is_ghactions}
 reticulate::install_miniconda()
@@ -167,7 +168,7 @@ reticulate::install_miniconda()
 reticulate::conda_create(envname = "flopy", packages = "flopy")
 ```
 
-## Use flopy
+### Use flopy
 
 ```{r use_flopy, eval = TRUE}
 
