@@ -174,7 +174,7 @@ kwb.nextcloud::download_files(href = mf_files$href,
 reticulate::install_miniconda()
 
 ### create an environment "flopy" for installing "flopy" 
-
+reticulate::conda_create(envname = "flopy", packages = "flopy")
 
 ```
 
