@@ -16,28 +16,32 @@ is_ghactions <- identical(Sys.getenv("CI"), "true")
 
 ```
 
-According to [ModelMuse documentation](
-https://water.usgs.gov/nrp/gwsoftware/ModelMuse/Help/index.html?head_and_drawdown_panes.htm)
-`heads` and `drawdowns` will be saved with the following `file extensions`: 
+## Prerequistes
 
-* **heads**: `.fhd` if it is a formatted text file and `.bhd` if it is a binary file. 
-
-* **drawdowns**: `.fdn` if it is a formatted text file and `.bdn` if it is a binary file.
+Install and load the R package `dwc.ar4gw`:
 
 ```{r define_paths}
-#remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)
-library(dwc.ar4gw)
+### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)
+### See here why this might be important for you:
+### https://kwb-r.github.io/kwb.pkgbuild/articles/install.html#set-your-github_pat
 
-### Download model files from KWB cloud:
-### 1. Run: usethis::edit_r_environ()
-### 2. Add required environment variables
-### NEXTCLOUD_URL = "https://url-of-nextcloud.com"
-### NEXTCLOUD_USER = "username"
-### NEXTCLOUD_PASSWORD = "nextcloud-app-password" 
-### for creating "nextcloud-app-password": 
-### a) go to: https://url-of-nextcloud.com/index.php/settings/user/security
-### b) create new app password
-### Finally restart Rstudio
+# Sys.setenv(GITHUB_PAT = "mysecret_access_token")
+
+# Install package "remotes" from CRAN
+if (! require("remotes")) {
+  install.packages("remotes", repos = "https://cloud.r-project.org")
+}
+
+# Install KWB package 'kwb-r/dwc.ar4gw' from GitHub
+remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)
+
+# Load the R packag
+library(dwc.ar4gw)
+```
+
+## Define paths
+
+```{r define_paths}
 
 ### define paths
 paths_list <- list(
@@ -59,13 +63,81 @@ paths_list <- list(
 )
 
 paths <- kwb.utils::resolve(paths_list, root_data = paths_list$download_dir)
-#paths <- kwb.utils::resolve(paths_list, root_data = paths_list$local_dir)
+paths_local <- kwb.utils::resolve(paths_list, root_data = paths_list$local_dir)
 ```
 
+## Modflow Files
+
+This tutorial needs a few `MODFLOW` files which can be provided [locally](#locally)
+from a predefined folder on your Windows computer or directly downloaded from
+the DWC [Cloud](#cloud). Within this tutorial the latter approach is used. 
+
+Currently only the following four files are required: 
+
+* `<model_name>`.`nam` (name file)
+
+* `<model_name>`.`dis` (discretisation file)
+
+* `<model_name>`.`cbc` (cell by cell budget fie)
+
+* `<model_name>`.`bhd` (binary heads file)
+
+where for `<model_name>` we use `r paths_list$model_name`, which is defined in 
+the `paths_list` in the previous chapter [Define Paths](#define-paths).
+
+
+<!-- According to [ModelMuse documentation]( -->
+<!-- https://water.usgs.gov/nrp/gwsoftware/ModelMuse/Help/index.html?head_and_drawdown_panes.htm) -->
+<!-- `heads` and `drawdowns` will be saved with the following `file extensions`:  -->
+
+<!-- * **heads**: `.fhd` if it is a formatted text file and `.bhd` if it is a binary file.  -->
+
+<!-- * **drawdowns**: `.fdn` if it is a formatted text file and `.bdn` if it is a binary file. -->
+
+### Locally
+
+Copy the content of the DWC cloud folder `r paths$cloud_dir` to 
+`r paths_local$local_dir` as shown below:
+
+```{r modflow_local, echo = FALSE}
+paths_local
+```
+
+```{r modflow_local_rename, eval = FALSE}
+path <- paths_local
+```
+
+### Cloud 
+
+You can download the required model files from the DWC cloud if you are a 
+registered user with access to the folder `r paths$mfout`
+
+For doing so follow the steps below: 
+
+1. Open `RStudio` and run `usethis::edit_r_environ()`
+
+2. In the opened window add the required environment variables
+
+```
+NEXTCLOUD_URL = "https://<replace-with-dwc-cloud-url>"
+NEXTCLOUD_USER = "<your-dwc-cloud-username>" # your username
+NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below
+```
+
+For creating `<your-nextcloud-app-password`:
+
+* go to: https://<replace-with-dwc-cloud-url>/index.php/settings/user/security
+
+* scroll down to `create new app password`
+
+* select a name e.g. `r-script` and copy the token and replace `your-nextcloud-app-password`
+
+
+3. Finally you need to restart Rstudio and proceed with the code below:
 
 ```{r nextcloud_download}
 
-# Download .cbc and .bhd files
+# Download .cbc and .bhd and .dis files
 mf_files <- kwb.nextcloud::list_files(
   paths$cloud_dir,
   full_info = TRUE) %>%
@@ -73,7 +145,7 @@ mf_files <- kwb.nextcloud::list_files(
                                     pattern = sprintf("^%s\\.",  
                                                       paths$model_name))) %>% 
   dplyr::filter(stringr::str_detect(.data$file,
-                                    pattern = "cbc$|bhd$|dis$"))
+                                    pattern = "bhd$|cbc$|dis$|nam$"))
 
 mf_files
 
@@ -83,6 +155,8 @@ kwb.nextcloud::download_files(href = mf_files$href,
 ```
 
 
+
+```
 ## Install flopy
 
 ```{r install_flopy, eval = is_ghactions}
@@ -93,7 +167,7 @@ reticulate::install_miniconda()
 reticulate::conda_create(envname = "flopy", packages = "flopy")
 ```
 
-## Use flopy 
+## Use flopy
 
 ```{r use_flopy, eval = TRUE}
 
@@ -152,6 +226,8 @@ summary(gradients)
 
 ```
 
-[flopy.utils.postprocessing](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
+For details on the used `flopy` functions have a look at the documentation here:
+
+[https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
 
 

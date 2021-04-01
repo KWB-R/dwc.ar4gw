@@ -26,12 +26,14 @@ Suggests:
     knitr,
     kwb.nextcloud,
     kwb.utils,
+    remotes,
     rmarkdown,
+    usethis,
     stringr
 VignetteBuilder: 
     knitr
 Remotes:
-    github::kwb-r/kwb.nextcloud@dev,
+    github::kwb-r/kwb.nextcloud,
     github::kwb-r/kwb.utils
 Encoding: UTF-8
 LazyData: true
