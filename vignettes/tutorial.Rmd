@@ -72,15 +72,21 @@ This tutorial needs a few `MODFLOW` files which can be provided [locally](#local
 from a predefined folder on your Windows computer or directly downloaded from
 the DWC [Cloud](#cloud). Within this tutorial the latter approach is used. 
 
-Currently only the following four files are required: 
+Currently all input files in the MODFLOW `.nam` file are required and two output 
+files:
 
-* `<model_name>`.`nam` (name file)
+* `<model_name>`.`nam` (input: name file)
 
-* `<model_name>`.`dis` (discretisation file)
+* `<model_name>`.`dis` (input: discretisation file)
 
-* `<model_name>`.`cbc` (cell by cell budget fie)
+* `<model_name>`.`lst`|`bas`|`oc`|`gmg`|`bcf`|`wel`|`riv`|`rch`|`evt` (not loaded, 
+but need to be available in model directory)
 
-* `<model_name>`.`bhd` (binary heads file)
+* `<model_name>`.`cbc` (output: cell by cell budget fie)
+
+* `<model_name>`.`bhd` (output: binary heads file)
+
+
 
 where for `<model_name>` we use `r paths_list$model_name`, which is defined in 
 the `paths_list` in the previous chapter [Define Paths](#define-paths).
@@ -137,6 +143,11 @@ For creating `<your-nextcloud-app-password`:
 
 ```{r nextcloud_download}
 
+required_mffiles <- paste0(paste0(c("nam", "dis", "lst", "bas", "oc", "gmg",
+         "bcf", "wel", "riv", "rch", "evt", "bhd", "cbc"), 
+       collapse = "$|"), "$")
+
+
 # Download .cbc and .bhd and .dis files
 mf_files <- kwb.nextcloud::list_files(
   paths$cloud_dir,
@@ -145,7 +156,7 @@ mf_files <- kwb.nextcloud::list_files(
                                     pattern = sprintf("^%s\\.",  
                                                       paths$model_name))) %>% 
   dplyr::filter(stringr::str_detect(.data$file,
-                                    pattern = "bhd$|cbc$|dis$|nam$"))
+                                    pattern = required_mffiles))
 
 mf_files
 
@@ -164,15 +175,7 @@ reticulate::install_miniconda()
 
 ### create an environment "flopy" for installing "flopy" 
 
-reticulate::conda_create(envname = "flopy", packages = "flopy")
-```
 
-```{r install_flopy, eval = FALSE}
-reticulate::install_miniconda()
-
-### create an environment "flopy" for installing "flopy" 
-
-reticulate::conda_create(envname = "flopy", packages = "flopy")
 ```
 
 ### Use flopy
@@ -219,9 +222,11 @@ summary(dat_heads$time_365.0)
 summary(dat_heads$time_365.0)[c(1,6)]
 # reticulate::py_help(object = flopy$modflow$mf$Modflow$load)
 mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam, 
-                                    #model_ws = dirname(paths$mf_nam),
+                                    model_ws = dirname(paths$mf_nam),
                                     load_only = "dis",
-                                    verbose = TRUE)
+                                    forgive = TRUE,
+                                    verbose = TRUE
+                                    )
 
 
 # reticulate::py_help(object = flopy$utils$postprocessing$get_gradients)
