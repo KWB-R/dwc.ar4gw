@@ -35,7 +35,6 @@ if (! require("remotes")) {
 # Install KWB package 'kwb-r/dwc.ar4gw' from GitHub
 remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)
 
-
 ```
 
 ## Define paths
@@ -230,5 +229,3 @@ summary(gradients)
 For details on the used `flopy` functions have a look at the documentation here:
 
 [https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
-
-
