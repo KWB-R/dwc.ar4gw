@@ -26,11 +26,26 @@ https://water.usgs.gov/nrp/gwsoftware/ModelMuse/Help/index.html?head_and_drawdow
 
 ```{r define_paths}
 #remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)
+library(dwc.ar4gw)
+
+### Download model files from KWB cloud:
+### 1. Run: usethis::edit_r_environ()
+### 2. Add required environment variables
+### NEXTCLOUD_URL = "https://url-of-nextcloud.com"
+### NEXTCLOUD_USER = "username"
+### NEXTCLOUD_PASSWORD = "nextcloud-app-password" 
+### for creating "nextcloud-app-password": 
+### a) go to: https://url-of-nextcloud.com/index.php/settings/user/security
+### b) create new app password
+### Finally restart Rstudio
 
 ### define paths
 paths_list <- list(
-  root_data = "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW",
-  modflow_output = "<root_data>/ModelData/MF2005",
+  tdir = tempdir(), 
+  cloud_dir = "dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005",
+  local_dir = "C:/kwb/projects/<cloud_dir>",
+  download_dir = tempdir(),
+  modflow_output = "<root_data>",
   model_name = "MB16",
   mfout = "<modflow_output>/<model_name>",
   text_heads = "<mfout>.fhd",
@@ -40,25 +55,44 @@ paths_list <- list(
   binary_drawdown = "<mfout>.bdn"
 )
 
-paths <- kwb.utils::resolve(paths_list)
-paths
+paths <- kwb.utils::resolve(paths_list, root_data = paths_list$download_dir)
 
 ```
 
+
+```{r nextcloud_download}
+
+# Download .cbc and .bhd files
+mf_files <- kwb.nextcloud::list_files(
+  paths$cloud_dir,
+  full_info = TRUE) %>%
+  dplyr::filter(stringr::str_detect(.data$file,
+                                    pattern = sprintf("^%s\\.",  
+                                                      paths$model_name))) %>% 
+  dplyr::filter(stringr::str_detect(.data$file,
+                                    pattern = "cbc$|bhd$"))
+
+mf_files
+
+kwb.nextcloud::download_files(href = mf_files$href,
+                              target_dir = paths$download_dir)
+
+```
+
+
 ## Install flopy
 
-```{r install_flopy, eval = FALSE}
+```{r install_flopy, eval = is_ghactions}
 reticulate::install_miniconda()
 
-### create an environment for installing "flopy" 
-env_name <- "flopy"
+### create an environment "flopy" for installing "flopy" 
 
 reticulate::conda_create(envname = "flopy", packages = "flopy")
 ```
 
 ## Use flopy 
 
-```{r use_flopy, eval = !is_ghactions}
+```{r use_flopy, eval = TRUE}
 
 reticulate::use_miniconda(condaenv = "flopy", required = TRUE)
 
@@ -75,10 +109,27 @@ if(.Platform$OS.type == "windows") {
 
 }
 
+# reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
 
 str(extended_budget)
 
+flopy <- dwc.ar4gw::import_flopy()
+
+# reticulate::py_help(object = flopy$utils$binaryfile$HeadFile)
+heads <- flopy$utils$binaryfile$HeadFile(filename = paths$binary_heads,
+                                         verbose = TRUE)
+
+# reticulate::py_help(object = heads$get_times)
+times <- heads$get_times()[[1L]]
+
+dat_heads <- stats::setNames(
+  lapply(times, function(time) {
+  heads$get_data(totim = time) }),
+  nm = sprintf("time_%.1f", times)
+  )
+
+str(dat_heads)
 ```
 
 [flopy.utils.postprocessing](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)

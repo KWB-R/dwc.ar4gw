@@ -14,7 +14,7 @@ Python objects to R via the \link[reticulate]{py_to_r} function.}
 \item{...}{additional arguments passed to \link[reticulate]{import}}
 }
 \value{
-imports "fl
+imports "flopy" python package
 }
 \description{
 Import "flopy" Python Package
