@@ -99,11 +99,26 @@
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#remotes::install_github("kwb-r/dwc.ar4gw", dependencies = TRUE)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/KWB-R/dwc.ar4gw">dwc.ar4gw</a></span><span class="op">)</span>
+
+<span class="co">### Download model files from KWB cloud:</span>
+<span class="co">### 1. Run: usethis::edit_r_environ()</span>
+<span class="co">### 2. Add required environment variables</span>
+<span class="co">### NEXTCLOUD_URL = "https://url-of-nextcloud.com"</span>
+<span class="co">### NEXTCLOUD_USER = "username"</span>
+<span class="co">### NEXTCLOUD_PASSWORD = "nextcloud-app-password" </span>
+<span class="co">### for creating "nextcloud-app-password": </span>
+<span class="co">### a) go to: https://url-of-nextcloud.com/index.php/settings/user/security</span>
+<span class="co">### b) create new app password</span>
+<span class="co">### Finally restart Rstudio</span>
 
 <span class="co">### define paths</span>
 <span class="va">paths_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  root_data <span class="op">=</span> <span class="st">"C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW"</span>,
-  modflow_output <span class="op">=</span> <span class="st">"&lt;root_data&gt;/ModelData/MF2005"</span>,
+  tdir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, 
+  cloud_dir <span class="op">=</span> <span class="st">"dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005"</span>,
+  local_dir <span class="op">=</span> <span class="st">"C:/kwb/projects/&lt;cloud_dir&gt;"</span>,
+  download_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
+  modflow_output <span class="op">=</span> <span class="st">"&lt;root_data&gt;"</span>,
   model_name <span class="op">=</span> <span class="st">"MB16"</span>,
   mfout <span class="op">=</span> <span class="st">"&lt;modflow_output&gt;/&lt;model_name&gt;"</span>,
   text_heads <span class="op">=</span> <span class="st">"&lt;mfout&gt;.fhd"</span>,
@@ -113,54 +128,72 @@
   binary_drawdown <span class="op">=</span> <span class="st">"&lt;mfout&gt;.bdn"</span>
 <span class="op">)</span>
 
-<span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu">kwb.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kwb.utils/man/resolve.html">resolve</a></span><span class="op">(</span><span class="va">paths_list</span><span class="op">)</span>
-<span class="va">paths</span>
-<span class="co">#&gt; $root_data</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $modflow_output</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $model_name</span>
-<span class="co">#&gt; [1] "MB16"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $mfout</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $text_heads</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.fhd"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $text_drawdown</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.fdn"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $binary_cell.by.cell</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.cbc"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $binary_heads</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bhd"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $binary_drawdown</span>
-<span class="co">#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bdn"</span></code></pre></div>
+<span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu">kwb.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kwb.utils/man/resolve.html">resolve</a></span><span class="op">(</span><span class="va">paths_list</span>, root_data <span class="op">=</span> <span class="va">paths_list</span><span class="op">$</span><span class="va">download_dir</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># Download .cbc and .bhd files</span>
+<span class="va">mf_files</span> <span class="op">&lt;-</span> <span class="fu">kwb.nextcloud</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kwb.nextcloud/man/list_files.html">list_files</a></span><span class="op">(</span>
+  <span class="va">paths</span><span class="op">$</span><span class="va">cloud_dir</span>,
+  full_info <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">file</span>,
+                                    pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"^%s\\."</span>,  
+                                                      <span class="va">paths</span><span class="op">$</span><span class="va">model_name</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">file</span>,
+                                    pattern <span class="op">=</span> <span class="st">"cbc$|bhd$"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Listing dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005</span>
+
+<span class="va">mf_files</span>
+<span class="co">#&gt;       file isdir                             etag        lastmodified fileid</span>
+<span class="co">#&gt; 1 MB16.bhd FALSE b0127f18ceefcdd20be207967dc1faba 2021-03-04 10:09:48 212327</span>
+<span class="co">#&gt; 2 MB16.cbc FALSE 3d41e58d4a0fe2c06f9a3961ceff7377 2021-03-04 13:52:24 212420</span>
+<span class="co">#&gt;   permissions     size</span>
+<span class="co">#&gt; 1     RMGDNVW 17108832</span>
+<span class="co">#&gt; 2     RMGDNVW 60192496</span>
+<span class="co">#&gt;                                                                                                    href</span>
+<span class="co">#&gt; 1 /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bhd</span>
+<span class="co">#&gt; 2 /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.cbc</span>
+
+<span class="fu">kwb.nextcloud</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kwb.nextcloud/man/download_files.html">download_files</a></span><span class="op">(</span>href <span class="op">=</span> <span class="va">mf_files</span><span class="op">$</span><span class="va">href</span>,
+                              target_dir <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">download_dir</span><span class="op">)</span>
+<span class="co">#&gt; Splitting paths ... ok. (0.00s) </span>
+<span class="co">#&gt; Removing the first 11 path segments ... ok. (0.00s) </span>
+<span class="co">#&gt; Putting path segments together ... ok. (0.00s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bhd ... ok. (3.30s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.cbc ... ok. (5.51s)</span>
+<span class="co">#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpCUVvRy/MB16.bhd"</span>
+<span class="co">#&gt; [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpCUVvRy/MB16.cbc"</span></code></pre></div>
 <div id="install-flopy" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-flopy" class="anchor"></a>Install flopy</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/install_miniconda.html">install_miniconda</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; * Downloading 'https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh' ...</span>
+<span class="co">#&gt; * Installing Miniconda -- please wait a moment ...</span>
+<span class="co">#&gt; * Miniconda has been successfully installed at '/Users/runner/Library/r-miniconda'.</span>
+<span class="co">#&gt; [1] "/Users/runner/Library/r-miniconda"</span>
 
-<span class="co">### create an environment for installing "flopy" </span>
-<span class="va">env_name</span> <span class="op">&lt;-</span> <span class="st">"flopy"</span>
+<span class="co">### create an environment "flopy" for installing "flopy" </span>
 
-<span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/conda-tools.html">conda_create</a></span><span class="op">(</span>envname <span class="op">=</span> <span class="st">"flopy"</span>, packages <span class="op">=</span> <span class="st">"flopy"</span><span class="op">)</span></code></pre></div>
+<span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/conda-tools.html">conda_create</a></span><span class="op">(</span>envname <span class="op">=</span> <span class="st">"flopy"</span>, packages <span class="op">=</span> <span class="st">"flopy"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "/Users/runner/Library/r-miniconda/envs/flopy/bin/python"</span></code></pre></div>
 </div>
 <div id="use-flopy" class="section level2">
 <h2 class="hasAnchor">
 <a href="#use-flopy" class="anchor"></a>Use flopy</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/use_python.html">use_miniconda</a></span><span class="op">(</span>condaenv <span class="op">=</span> <span class="st">"flopy"</span>, required <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">pyconfig</span> <span class="op">&lt;-</span> <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/py_config.html">py_config</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">pyconfig</span>
+<span class="co">#&gt; python:         /Users/runner/Library/r-miniconda/envs/flopy/bin/python</span>
+<span class="co">#&gt; libpython:      /Users/runner/Library/r-miniconda/envs/flopy/lib/libpython3.9.dylib</span>
+<span class="co">#&gt; pythonhome:     /Users/runner/Library/r-miniconda/envs/flopy:/Users/runner/Library/r-miniconda/envs/flopy</span>
+<span class="co">#&gt; version:        3.9.2 | packaged by conda-forge | (default, Feb 21 2021, 05:02:20)  [Clang 11.0.1 ]</span>
+<span class="co">#&gt; numpy:          /Users/runner/Library/r-miniconda/envs/flopy/lib/python3.9/site-packages/numpy</span>
+<span class="co">#&gt; numpy_version:  1.20.2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; NOTE: Python version was forced by use_python function</span>
 
 <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reticulate/man/use_python.html">use_python</a></span><span class="op">(</span>python <span class="op">=</span> <span class="va">pyconfig</span><span class="op">$</span><span class="va">python</span>, required <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
@@ -172,9 +205,34 @@
 
 <span class="op">}</span>
 
+<span class="co"># reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)</span>
 <span class="va">extended_budget</span> <span class="op">&lt;-</span> <span class="fu">dwc.ar4gw</span><span class="fu">::</span><span class="fu"><a href="../reference/get_extended_budget.html">get_extended_budget</a></span><span class="op">(</span>cbcfile <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">binary_cell.by.cell</span><span class="op">)</span> 
 
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">extended_budget</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">extended_budget</span><span class="op">)</span>
+<span class="co">#&gt; List of 1</span>
+<span class="co">#&gt;  $ time_1.0:List of 3</span>
+<span class="co">#&gt;   ..$ Qx_ext: num [1:8, 1:656, 1:816] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;   ..$ Qy_ext: num [1:8, 1:657, 1:815] 0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="co">#&gt;   ..$ Qz_ext: num [1:9, 1:656, 1:815] 0 0 0 0 0 0 0 0 0 0 ...</span>
+
+<span class="va">flopy</span> <span class="op">&lt;-</span> <span class="fu">dwc.ar4gw</span><span class="fu">::</span><span class="fu"><a href="../reference/import_flopy.html">import_flopy</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># reticulate::py_help(object = flopy$utils$binaryfile$HeadFile)</span>
+<span class="va">heads</span> <span class="op">&lt;-</span> <span class="va">flopy</span><span class="op">$</span><span class="va">utils</span><span class="op">$</span><span class="va">binaryfile</span><span class="op">$</span><span class="fu">HeadFile</span><span class="op">(</span>filename <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">binary_heads</span>,
+                                         verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># reticulate::py_help(object = heads$get_times)</span>
+<span class="va">times</span> <span class="op">&lt;-</span> <span class="va">heads</span><span class="op">$</span><span class="fu">get_times</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span>
+
+<span class="va">dat_heads</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">times</span>, <span class="kw">function</span><span class="op">(</span><span class="va">time</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">heads</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span>totim <span class="op">=</span> <span class="va">time</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span>,
+  nm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"time_%.1f"</span>, <span class="va">times</span><span class="op">)</span>
+  <span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">dat_heads</span><span class="op">)</span>
+<span class="co">#&gt; List of 1</span>
+<span class="co">#&gt;  $ time_365.0: num [1:8, 1:656, 1:815] 1e+30 1e+30 1e+30 1e+30 1e+30 ...</span></code></pre></div>
 <p><a href="https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html">flopy.utils.postprocessing</a></p>
 </div>
   </div>
