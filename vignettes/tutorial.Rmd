@@ -159,7 +159,7 @@ kwb.nextcloud::download_files(href = mf_files$href,
 
 ### Install flopy
 
-```{r install_flopy, echho = FALSE, eval = is_ghactions}
+```{r install_flopy_ghactions, echho = FALSE, eval = is_ghactions}
 reticulate::install_miniconda()
 
 ### create an environment "flopy" for installing "flopy" 
