@@ -45,9 +45,12 @@ paths_list <- list(
   cloud_dir = "dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005",
   local_dir = "C:/kwb/projects/<cloud_dir>",
   download_dir = tempdir(),
-  modflow_output = "<root_data>",
+  modflow_dir = "<root_data>",
   model_name = "MB16",
-  mfout = "<modflow_output>/<model_name>",
+  mfout = "<modflow_dir>/<model_name>",
+  mf_nam = "<mfout>.nam",
+  mf_bas = "<mfout>.bas",
+  mf_dis = "<mfout>.dis",
   text_heads = "<mfout>.fhd",
   text_drawdown = "<mfout>.fdn",
   binary_cell.by.cell = "<mfout>.cbc",
@@ -56,7 +59,7 @@ paths_list <- list(
 )
 
 paths <- kwb.utils::resolve(paths_list, root_data = paths_list$download_dir)
-
+#paths <- kwb.utils::resolve(paths_list, root_data = paths_list$local_dir)
 ```
 
 
@@ -70,7 +73,7 @@ mf_files <- kwb.nextcloud::list_files(
                                     pattern = sprintf("^%s\\.",  
                                                       paths$model_name))) %>% 
   dplyr::filter(stringr::str_detect(.data$file,
-                                    pattern = "cbc$|bhd$"))
+                                    pattern = "cbc$|bhd$|dis$"))
 
 mf_files
 
@@ -130,6 +133,23 @@ dat_heads <- stats::setNames(
   )
 
 str(dat_heads)
+summary(dat_heads$time_365.0)
+summary(dat_heads$time_365.0)[c(1,6)]
+# reticulate::py_help(object = flopy$modflow$mf$Modflow$load)
+mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam, 
+                                    #model_ws = dirname(paths$mf_nam),
+                                    load_only = "dis",
+                                    verbose = TRUE)
+
+
+# reticulate::py_help(object = flopy$utils$postprocessing$get_gradients)
+gradients <- flopy$utils$postprocessing$get_gradients(
+  heads = dat_heads$time_365.0,
+  m = mf,
+  nodata = c(-1e+30,1e+30))
+
+summary(gradients)
+
 ```
 
 [flopy.utils.postprocessing](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
