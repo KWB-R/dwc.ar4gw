@@ -20,7 +20,7 @@ is_ghactions <- identical(Sys.getenv("CI"), "true")
 
 Install and load the R package `dwc.ar4gw`:
 
-```{r define_paths}
+```{r install_and_load, eval = FALSE}
 ### Optionally: specify GitHub Personal Access Token (GITHUB_PAT)
 ### See here why this might be important for you:
 ### https://kwb-r.github.io/kwb.pkgbuild/articles/install.html#set-your-github_pat
