@@ -230,5 +230,3 @@ summary(gradients)
 For details on the used `flopy` functions have a look at the documentation here:
 
 [https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
-
-
