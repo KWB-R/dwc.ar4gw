@@ -130,9 +130,9 @@ NEXTCLOUD_USER = "<your-dwc-cloud-username>" # your username
 NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below
 ```
 
-For creating `<your-nextcloud-app-password`:
+For creating `<your-nextcloud-app-password>`:
 
-* go to: https://<replace-with-dwc-cloud-url>/index.php/settings/user/security
+* go to: https://replace-with-dwc-cloud-url/index.php/settings/user/security
 
 * scroll down to `create new app password`
 
