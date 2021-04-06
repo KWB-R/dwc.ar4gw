@@ -116,7 +116,7 @@ path <- paths_local
 ### Cloud 
 
 You can download the required model files from the DWC cloud if you are a 
-registered user with access to the folder `r paths$mfout`
+registered user with access to the folder ``r paths$cloud_dir``
 
 For doing so follow the steps below: 
 
