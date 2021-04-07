@@ -25,6 +25,7 @@ Suggests:
     dplyr,
     knitr,
     kwb.nextcloud,
+    kwb.python,
     kwb.utils,
     remotes,
     rmarkdown,
@@ -34,6 +35,7 @@ VignetteBuilder:
     knitr
 Remotes:
     github::kwb-r/kwb.nextcloud,
+    github::kwb-r/kwb.python,
     github::kwb-r/kwb.utils
 Encoding: UTF-8
 LazyData: true
