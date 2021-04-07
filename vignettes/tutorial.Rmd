@@ -171,31 +171,17 @@ kwb.nextcloud::download_files(href = mf_files$href,
 ### Install flopy
 
 ```{r install_flopy_ghactions, eval = is_ghactions}
-kwb.python::install_miniconda()
 
 ### create an environment "flopy" for installing "flopy" 
-reticulate::conda_create(envname = "flopy", packages = "flopy")
+kwb.python::conda_py_install(env_name = "flopy", 
+                             pkgs = list(conda = c("python", "flopy"), 
+                                         py = NULL))
 
 ```
 
 ### Use flopy
 
 ```{r use_flopy, eval = TRUE}
-
-reticulate::use_miniconda(condaenv = "flopy", required = TRUE)
-
-pyconfig <- reticulate::py_config()
-pyconfig
-
-reticulate::use_python(python = pyconfig$python, required = TRUE)
-
-## on windows: (try this: https://github.com/rstudio/reticulate/issues/367#issuecomment-432920802)
-if(.Platform$OS.type == "windows") {
-  Sys.setenv(PATH= paste(PATH = pyconfig$pythonpath,
-                         Sys.getenv()["PATH"], sep=";")
-  )
-
-}
 
 # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
