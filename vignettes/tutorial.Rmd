@@ -183,7 +183,7 @@ kwb.python::conda_py_install(env_name = "flopy",
 ### Use flopy
 
 ```{r use_flopy, eval = TRUE}
-reticulate::use_miniconda("flopy", required = TRUE)
+#reticulate::use_miniconda("flopy", required = TRUE)
 # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
 summary(extended_budget$time_1.0$Qx_ext)
