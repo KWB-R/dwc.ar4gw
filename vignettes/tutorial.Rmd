@@ -211,8 +211,8 @@ summary(dat_heads$time_365.0)[c(1,6)]
 # reticulate::py_help(object = flopy$modflow$mf$Modflow$load)
 mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam, 
                                     model_ws = dirname(paths$mf_nam),
-                                    forgive = TRUE #,
-                                    #verbose = TRUE
+                                    forgive = TRUE,
+                                    verbose = TRUE
                                     )
 
 
@@ -225,13 +225,13 @@ gradients <- flopy$utils$postprocessing$get_gradients(
 str(gradients)
 summary(gradients)
 
+  budget <- flopy$utils$CellBudgetFile(filename = paths$binary_cell.by.cell)
 
-budget <- flopy$utils$CellBudgetFile(filename = paths$binary_cell.by.cell)
-
-# reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
+  # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
   budget_array <- flopy$utils$postprocessing$get_extended_budget(
       cbcfile = paths$binary_cell.by.cell) 
 
+  heads_array <- heads$get_alldata()
   
 # reticulate::py_help(object = flopy$utils$postprocessing$get_specific_discharge)
 # Works now with flopy 3.3.4 release candidate: 
@@ -239,7 +239,7 @@ budget <- flopy$utils$CellBudgetFile(filename = paths$binary_cell.by.cell)
 specific_discharge <- setNames(flopy$utils$postprocessing$get_specific_discharge(
   vectors = budget_array, 
   model = mf, 
-  head = dat_heads$time_365.0
+  head = heads_array
   ), 
   nm = c("qx", "qy", "qz")
 )
