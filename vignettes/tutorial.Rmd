@@ -110,7 +110,7 @@ paths_local
 ```
 
 ```{r modflow_local_rename, eval = FALSE}
-path <- paths_local
+paths <- paths_local
 ```
 
 ### Cloud 
@@ -185,7 +185,6 @@ kwb.python::conda_py_install(env_name = "flopy",
 
 # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
-
 str(extended_budget)
 
 flopy <- dwc.ar4gw::import_flopy()
