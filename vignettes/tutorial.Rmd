@@ -52,6 +52,7 @@ paths_list <- list(
   modflow_dir = "<root_data>",
   model_name = "MB16",
   mfout = "<modflow_dir>/<model_name>",
+  mf_cbc = "<mfout>.cbc",
   mf_nam = "<mfout>.nam",
   mf_bas = "<mfout>.bas",
   mf_dis = "<mfout>.dis",
@@ -174,7 +175,7 @@ kwb.nextcloud::download_files(href = mf_files$href,
 
 ### create an environment "flopy" for installing "flopy" 
 kwb.python::conda_py_install(env_name = "flopy", 
-                             pkgs = list(conda = c("python", "flopy"), 
+                             pkgs = list(conda = c("python", "flopy", "pyshp"), 
                                          py = NULL))
 
 ```
@@ -182,9 +183,10 @@ kwb.python::conda_py_install(env_name = "flopy",
 ### Use flopy
 
 ```{r use_flopy, eval = TRUE}
-
 # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
+summary(extended_budget$time_1.0$Qx_ext)
+
 str(extended_budget)
 
 flopy <- dwc.ar4gw::import_flopy()
@@ -208,7 +210,6 @@ summary(dat_heads$time_365.0)[c(1,6)]
 # reticulate::py_help(object = flopy$modflow$mf$Modflow$load)
 mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam, 
                                     model_ws = dirname(paths$mf_nam),
-                                    load_only = "dis",
                                     forgive = TRUE,
                                     verbose = TRUE
                                     )
@@ -220,13 +221,35 @@ gradients <- flopy$utils$postprocessing$get_gradients(
   m = mf,
   nodata = c(-1e+30,1e+30))
 
-
 str(gradients)
-
 summary(gradients)
+
+
+if(FALSE) {
+# reticulate::py_help(object = flopy$utils$postprocessing$get_specific_discharge)
+specific_discharge <- flopy$utils$postprocessing$get_specific_discharge(
+  model = mf, 
+  cbcfile = paths$mf_cbc,
+  hdsfile = paths$binary_heads,
+  kstpkper = c(0,0)
+  )
+# Does not work !!!!
+# Fehler in py_call_impl(callable, dots$args, dots$keywords) : 
+#  AttributeError: 'NoneType' object has no attribute 'laycon'
+
+}
 
 ```
 
 For details on the used `flopy` functions have a look at the documentation here:
 
 [https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html](https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html)
+
+
+## Export 
+
+Model to shapefile (gets really big !!!!)
+
+```{r export, eval = FALSE}
+mf$export(f = "MB16.shp")
+```
