@@ -127,6 +127,7 @@
   modflow_dir <span class="op">=</span> <span class="st">"&lt;root_data&gt;"</span>,
   model_name <span class="op">=</span> <span class="st">"MB16"</span>,
   mfout <span class="op">=</span> <span class="st">"&lt;modflow_dir&gt;/&lt;model_name&gt;"</span>,
+  mf_cbc <span class="op">=</span> <span class="st">"&lt;mfout&gt;.cbc"</span>,
   mf_nam <span class="op">=</span> <span class="st">"&lt;mfout&gt;.nam"</span>,
   mf_bas <span class="op">=</span> <span class="st">"&lt;mfout&gt;.bas"</span>,
   mf_dis <span class="op">=</span> <span class="st">"&lt;mfout&gt;.dis"</span>,
@@ -163,7 +164,7 @@
 <a href="#locally" class="anchor"></a>Locally</h3>
 <p>Copy the content of the DWC cloud folder dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005 to C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005 as shown below:</p>
 <pre><code>#&gt; $tdir
-#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9"
+#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp"
 #&gt; 
 #&gt; $cloud_dir
 #&gt; [1] "dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005"
@@ -172,7 +173,7 @@
 #&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005"
 #&gt; 
 #&gt; $download_dir
-#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9"
+#&gt; [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp"
 #&gt; 
 #&gt; $modflow_dir
 #&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005"
@@ -182,6 +183,9 @@
 #&gt; 
 #&gt; $mfout
 #&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16"
+#&gt; 
+#&gt; $mf_cbc
+#&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.cbc"
 #&gt; 
 #&gt; $mf_nam
 #&gt; [1] "C:/kwb/projects/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.nam"
@@ -304,36 +308,36 @@ NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below</code><
 <span class="co">#&gt; Splitting paths ... ok. (0.00s) </span>
 <span class="co">#&gt; Removing the first 11 path segments ... ok. (0.00s) </span>
 <span class="co">#&gt; Putting path segments together ... ok. (0.00s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bas ... ok. (11.83s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bcf ... ok. (15.09s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bhd ... ok. (2.14s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.cbc ... ok. (5.39s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.dis ... ok. (9.16s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.evt ... ok. (3.29s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.gmg ... ok. (0.45s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.lst ... ok. (22.87s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.mpbas ... ok. (3.10s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.mplst ... ok. (0.43s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.nam ... ok. (0.42s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.oc ... ok. (0.41s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.rch ... ok. (1.61s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.riv ... ok. (0.77s) </span>
-<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.wel ... ok. (0.53s)</span>
-<span class="co">#&gt;  [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.bas"  </span>
-<span class="co">#&gt;  [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.bcf"  </span>
-<span class="co">#&gt;  [3] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.bhd"  </span>
-<span class="co">#&gt;  [4] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.cbc"  </span>
-<span class="co">#&gt;  [5] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.dis"  </span>
-<span class="co">#&gt;  [6] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.evt"  </span>
-<span class="co">#&gt;  [7] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.gmg"  </span>
-<span class="co">#&gt;  [8] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.lst"  </span>
-<span class="co">#&gt;  [9] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.mpbas"</span>
-<span class="co">#&gt; [10] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.mplst"</span>
-<span class="co">#&gt; [11] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.nam"  </span>
-<span class="co">#&gt; [12] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.oc"   </span>
-<span class="co">#&gt; [13] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.rch"  </span>
-<span class="co">#&gt; [14] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.riv"  </span>
-<span class="co">#&gt; [15] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpkDV8d9/MB16.wel"</span></code></pre></div>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bas ... ok. (13.03s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bcf ... ok. (20.48s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.bhd ... ok. (3.51s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.cbc ... ok. (5.22s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.dis ... ok. (14.28s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.evt ... ok. (5.13s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.gmg ... ok. (0.41s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.lst ... ok. (22.15s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.mpbas ... ok. (2.80s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.mplst ... ok. (0.39s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.nam ... ok. (0.40s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.oc ... ok. (0.39s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.rch ... ok. (1.60s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.riv ... ok. (1.29s) </span>
+<span class="co">#&gt; Downloading /remote.php/dav/files/mrustl/dwc/Work-Packages/WP3_Public_Involvement/AR4GW/ModelData/MF2005/MB16.wel ... ok. (0.39s)</span>
+<span class="co">#&gt;  [1] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.bas"  </span>
+<span class="co">#&gt;  [2] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.bcf"  </span>
+<span class="co">#&gt;  [3] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.bhd"  </span>
+<span class="co">#&gt;  [4] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.cbc"  </span>
+<span class="co">#&gt;  [5] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.dis"  </span>
+<span class="co">#&gt;  [6] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.evt"  </span>
+<span class="co">#&gt;  [7] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.gmg"  </span>
+<span class="co">#&gt;  [8] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.lst"  </span>
+<span class="co">#&gt;  [9] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.mpbas"</span>
+<span class="co">#&gt; [10] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.mplst"</span>
+<span class="co">#&gt; [11] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.nam"  </span>
+<span class="co">#&gt; [12] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.oc"   </span>
+<span class="co">#&gt; [13] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.rch"  </span>
+<span class="co">#&gt; [14] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.riv"  </span>
+<span class="co">#&gt; [15] "/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpVBKfTp/MB16.wel"</span></code></pre></div>
 </div>
 </div>
 <div id="flopy" class="section level2">
@@ -346,7 +350,7 @@ NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below</code><
 <code class="sourceCode R">
 <span class="co">### create an environment "flopy" for installing "flopy" </span>
 <span class="fu">kwb.python</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kwb.python/man/conda_py_install.html">conda_py_install</a></span><span class="op">(</span>env_name <span class="op">=</span> <span class="st">"flopy"</span>, 
-                             pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>conda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"python"</span>, <span class="st">"flopy"</span><span class="op">)</span>, 
+                             pkgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>conda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"python"</span>, <span class="st">"flopy"</span>, <span class="st">"pyshp"</span><span class="op">)</span>, 
                                          py <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; * Downloading 'https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh' ...</span>
 <span class="co">#&gt; * Installing Miniconda -- please wait a moment ...</span>
@@ -364,9 +368,12 @@ NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below</code><
 <h3 class="hasAnchor">
 <a href="#use-flopy" class="anchor"></a>Use flopy</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)</span>
+<code class="sourceCode R"><span class="co"># reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)</span>
 <span class="va">extended_budget</span> <span class="op">&lt;-</span> <span class="fu">dwc.ar4gw</span><span class="fu">::</span><span class="fu"><a href="../reference/get_extended_budget.html">get_extended_budget</a></span><span class="op">(</span>cbcfile <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">binary_cell.by.cell</span><span class="op">)</span> 
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">extended_budget</span><span class="op">$</span><span class="va">time_1.0</span><span class="op">$</span><span class="va">Qx_ext</span><span class="op">)</span>
+<span class="co">#&gt;       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. </span>
+<span class="co">#&gt; -1367.3788    -3.2607    -0.0040    -2.5185     0.0034  1521.7942</span>
+
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">extended_budget</span><span class="op">)</span>
 <span class="co">#&gt; List of 1</span>
 <span class="co">#&gt;  $ time_1.0:List of 3</span>
@@ -401,7 +408,6 @@ NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below</code><
 <span class="co"># reticulate::py_help(object = flopy$modflow$mf$Modflow$load)</span>
 <span class="va">mf</span> <span class="op">&lt;-</span> <span class="va">flopy</span><span class="op">$</span><span class="va">modflow</span><span class="op">$</span><span class="va">mf</span><span class="op">$</span><span class="va">Modflow</span><span class="op">$</span><span class="fu">load</span><span class="op">(</span>f <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">mf_nam</span>, 
                                     model_ws <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html">dirname</a></span><span class="op">(</span><span class="va">paths</span><span class="op">$</span><span class="va">mf_nam</span><span class="op">)</span>,
-                                    load_only <span class="op">=</span> <span class="st">"dis"</span>,
                                     forgive <span class="op">=</span> <span class="cn">TRUE</span>,
                                     verbose <span class="op">=</span> <span class="cn">TRUE</span>
                                     <span class="op">)</span>
@@ -413,16 +419,36 @@ NEXTCLOUD_PASSWORD = "your-nextcloud-app-password" ### see details below</code><
   m <span class="op">=</span> <span class="va">mf</span>,
   nodata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1e+30</span>,<span class="fl">1e+30</span><span class="op">)</span><span class="op">)</span>
 
-
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">gradients</span><span class="op">)</span>
 <span class="co">#&gt;  num [1:7, 1:656, 1:815] 0 0 0 0 0 0 0 0 0 0 ...</span>
-
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">gradients</span><span class="op">)</span>
 <span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's </span>
-<span class="co">#&gt; -1.3690  0.0000  0.0000  0.0143  0.0002  2.5653    1102</span></code></pre></div>
+<span class="co">#&gt; -1.3690  0.0000  0.0000  0.0143  0.0002  2.5653    1102</span>
+
+
+<span class="kw">if</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
+<span class="co"># reticulate::py_help(object = flopy$utils$postprocessing$get_specific_discharge)</span>
+<span class="va">specific_discharge</span> <span class="op">&lt;-</span> <span class="va">flopy</span><span class="op">$</span><span class="va">utils</span><span class="op">$</span><span class="va">postprocessing</span><span class="op">$</span><span class="fu">get_specific_discharge</span><span class="op">(</span>
+  model <span class="op">=</span> <span class="va">mf</span>, 
+  cbcfile <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">mf_cbc</span>,
+  hdsfile <span class="op">=</span> <span class="va">paths</span><span class="op">$</span><span class="va">binary_heads</span>,
+  kstpkper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co"># Does not work !!!!</span>
+<span class="co"># Fehler in py_call_impl(callable, dots$args, dots$keywords) : </span>
+<span class="co">#  AttributeError: 'NoneType' object has no attribute 'laycon'</span>
+
+<span class="op">}</span></code></pre></div>
 <p>For details on the used <code>flopy</code> functions have a look at the documentation here:</p>
 <p><a href="https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html">https://flopy.readthedocs.io/en/latest/source/flopy.utils.postprocessing.html</a></p>
 </div>
+</div>
+<div id="export" class="section level2">
+<h2 class="hasAnchor">
+<a href="#export" class="anchor"></a>Export</h2>
+<p>Model to shapefile (gets really big !!!!)</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mf</span><span class="op">$</span><span class="fu">export</span><span class="op">(</span>f <span class="op">=</span> <span class="st">"MB16.shp"</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 
