@@ -225,6 +225,7 @@ gradients <- flopy$utils$postprocessing$get_gradients(
 str(gradients)
 summary(gradients)
 
+if(FALSE) { 
   budget <- flopy$utils$CellBudgetFile(filename = paths$binary_cell.by.cell)
 
   # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
@@ -232,7 +233,8 @@ summary(gradients)
       cbcfile = paths$binary_cell.by.cell) 
 
   heads_array <- heads$get_alldata()
-  
+
+ 
 # reticulate::py_help(object = flopy$utils$postprocessing$get_specific_discharge)
 # Works now with flopy 3.3.4 release candidate: 
 # https://github.com/modflowpy/flopy/blob/b6092cbc94039750de309a832c7f554751782ac1/flopy/utils/postprocessing.py#L606
@@ -295,7 +297,7 @@ layer <- 2
 summary(as.vector(flow_velocity$vx[layer,,])) 
 summary(as.vector(flow_velocity$vy[layer,,])) 
 summary(as.vector(flow_velocity$vz[layer,,]))
-
+}
 ```
 
 For details on the used `flopy` functions have a look at the documentation here:
