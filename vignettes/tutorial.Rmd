@@ -211,8 +211,8 @@ summary(dat_heads$time_365.0)[c(1,6)]
 # reticulate::py_help(object = flopy$modflow$mf$Modflow$load)
 mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam, 
                                     model_ws = dirname(paths$mf_nam),
-                                    forgive = TRUE,
-                                    verbose = TRUE
+                                    forgive = TRUE #,
+                                    #verbose = TRUE
                                     )
 
 
@@ -225,17 +225,12 @@ gradients <- flopy$utils$postprocessing$get_gradients(
 str(gradients)
 summary(gradients)
 
-if(FALSE) {
-  budget <- flopy$utils$CellBudgetFile(filename = paths$binary_cell.by.cell)
 
-  times <- budget$get_times()
+budget <- flopy$utils$CellBudgetFile(filename = paths$binary_cell.by.cell)
 
-  times_numeric <- times[[1L]]
-
-  # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
+# reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
   budget_array <- flopy$utils$postprocessing$get_extended_budget(
-      cbcfile = paths$binary_cell.by.cell,
-      totim = times[[1]]) 
+      cbcfile = paths$binary_cell.by.cell) 
 
   
 # reticulate::py_help(object = flopy$utils$postprocessing$get_specific_discharge)
@@ -300,7 +295,7 @@ layer <- 2
 summary(as.vector(flow_velocity$vx[layer,,])) 
 summary(as.vector(flow_velocity$vy[layer,,])) 
 summary(as.vector(flow_velocity$vz[layer,,]))
-}
+
 ```
 
 For details on the used `flopy` functions have a look at the documentation here:
