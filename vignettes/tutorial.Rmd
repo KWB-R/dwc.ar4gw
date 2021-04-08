@@ -217,7 +217,7 @@ mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam,
                                     )
 
 
-
+if(FALSE) {
 # reticulate::py_help(object = flopy$utils$postprocessing$get_gradients)
 gradients <- flopy$utils$postprocessing$get_gradients(
   heads = dat_heads$time_365.0,
@@ -296,6 +296,7 @@ layer <- 2
 summary(as.vector(flow_velocity$vx[layer,,])) 
 summary(as.vector(flow_velocity$vy[layer,,])) 
 summary(as.vector(flow_velocity$vz[layer,,]))
+}
 
 ```
 
