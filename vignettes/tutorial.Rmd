@@ -252,7 +252,7 @@ Install  `flopy development` version from GitHub [https://github.com/modflowpy/f
 
 
 
-```{r install_flopy_dev_install_ghactions, eval = is_ghactions}
+```{r install_flopy_dev_install_ghactions, eval = FALSE}
 
 ### create an environment "flopy" for installing "flopy" 
 kwb.python::conda_py_install(env_name = "flopy_dev", 
