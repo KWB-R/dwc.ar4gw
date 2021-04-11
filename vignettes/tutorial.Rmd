@@ -213,9 +213,9 @@ summary(dat_heads$time_365.0)[c(1,6)]
 # reticulate::py_help(object = flopy$modflow$mf$Modflow$load)
 mf <- flopy$modflow$mf$Modflow$load(f = paths$mf_nam, 
                                     model_ws = dirname(paths$mf_nam),
-                                    load_only = "dis" #, #c("dis", "bas6", "bcf6"),
-                                    #forgive = TRUE,
-                                    #verbose = TRUE
+                                    load_only = "dis", #c("dis", "bas6", "bcf6"),
+                                    forgive = TRUE,
+                                    verbose = TRUE
                                     )
 
 
