@@ -59,7 +59,7 @@ ggplot2::ggplot(ggplot2::aes_string(x = "column", y = "row")) +
   ggplot2::facet_wrap(~layer) +
   ggplot2::scale_fill_gradient(low = fill_gradient_low,
                                high = fill_gradient_high) +
-  labs(x = "row", y = "column", title = title) +
+  labs(x = "column", y = "row", title = title) +
   ggplot2::theme_bw() +
   ggplot2::theme(axis.text.x = ggplot2::element_text(size=9, angle=0, vjust=0.3),
                  axis.text.y = ggplot2::element_text(size=9),
