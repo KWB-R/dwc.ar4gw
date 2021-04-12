@@ -1,3 +1,20 @@
+#' Helper function: convert multiarray to long format
+#'
+#' @param mulitarray multidimensional MODFLOW array
+#'
+#' @return convert multiarray to long format with columns:
+#' layer, col, row, value
+#' @export
+#' @importFrom reshape2 melt
+#' @importFrom dplyr rename
+to_long <- function(mulitarray) {
+  reshape2::melt(mulitarray) %>%
+    dplyr::rename(layer = "Var1",
+                  col = "Var2",
+                  row = "Var3")
+
+}
+
 #' plot_data
 #'
 #' @param mulitarray multidimensional MODFLOW array
@@ -11,8 +28,6 @@
 #' @return plot all Modflow layers
 #' @export
 #' @import ggplot2
-#' @importFrom reshape2 melt
-#' @importFrom dplyr rename
 #' @importFrom rlang .data
 plot_data <- function(mulitarray,
                       title = "",
@@ -22,26 +37,23 @@ plot_data <- function(mulitarray,
                       fill_gradient_high = "red"
                       ) {
 
+
+long_data <- to_long(multiarray)
+
 if(title == "") {
   title <- deparse(substitute(multiarray))
 }
 
-longData <- reshape2::melt(mulitarray) %>%
-  dplyr::rename(layer = "Var1",
-                col = "Var2",
-                row = "Var3")
 
 if(!is.null(value_min)) {
-  longData <- longData %>% dplyr::filter(.data$value > value_min)
+  long_data <- long_data %>% dplyr::filter(.data$value > value_min)
 }
 
 if(!is.null(value_max)) {
-  longData <- longData %>% dplyr::filter(.data$value < value_max)
+  long_data <- long_data %>% dplyr::filter(.data$value < value_max)
 }
 
-
-
-longData %>%
+long_data %>%
 ggplot2::ggplot(ggplot2::aes_string(x = "col", y = "row")) +
   ggplot2::geom_raster(ggplot2::aes_string(fill = "value")) +
   ggplot2::facet_wrap(~layer) +
