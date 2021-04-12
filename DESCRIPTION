@@ -23,7 +23,8 @@ Imports:
     magrittr,
     reshape2,
     reticulate,
-    rlang
+    rlang,
+    tidyr
 Suggests: 
     covr,
     knitr,
