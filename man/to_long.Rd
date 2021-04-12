@@ -11,7 +11,7 @@ to_long(multiarray)
 }
 \value{
 convert multiarray to long format with columns:
-layer, col, row, value
+layer, column, row, value
 }
 \description{
 Helper function: convert multiarray to long format

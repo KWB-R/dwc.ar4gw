@@ -3,14 +3,14 @@
 #' @param multiarray multidimensional MODFLOW array
 #'
 #' @return convert multiarray to long format with columns:
-#' layer, col, row, value
+#' layer, column, row, value
 #' @export
 #' @importFrom reshape2 melt
 #' @importFrom dplyr rename
 to_long <- function(multiarray) {
   reshape2::melt(multiarray) %>%
     dplyr::rename(layer = "Var1",
-                  col = "Var2",
+                  column = "Var2",
                   row = "Var3")
 
 }
@@ -54,7 +54,7 @@ if(!is.null(value_max)) {
 }
 
 long_data %>%
-ggplot2::ggplot(ggplot2::aes_string(x = "col", y = "row")) +
+ggplot2::ggplot(ggplot2::aes_string(x = "column", y = "row")) +
   ggplot2::geom_raster(ggplot2::aes_string(fill = "value")) +
   ggplot2::facet_wrap(~layer) +
   ggplot2::scale_fill_gradient(low = fill_gradient_low,
