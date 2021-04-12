@@ -132,7 +132,14 @@
     <p>plot_data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_data</span><span class='op'>(</span><span class='va'>mulitarray</span>, title <span class='op'>=</span> <span class='st'>""</span>, value_min <span class='op'>=</span> <span class='cn'>NULL</span>, value_max <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_data</span><span class='op'>(</span>
+  <span class='va'>mulitarray</span>,
+  title <span class='op'>=</span> <span class='st'>""</span>,
+  value_min <span class='op'>=</span> <span class='cn'>NULL</span>,
+  value_max <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fill_gradient_low <span class='op'>=</span> <span class='st'>"grey90"</span>,
+  fill_gradient_high <span class='op'>=</span> <span class='st'>"red"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,6 +161,14 @@
       <th>value_max</th>
       <td><p>maximum value. All larger values will be excluded from dataset
 (default: NULL)</p></td>
+    </tr>
+    <tr>
+      <th>fill_gradient_low</th>
+      <td><p>fill_gradient_low (default: "grey90")</p></td>
+    </tr>
+    <tr>
+      <th>fill_gradient_high</th>
+      <td><p>fill_gradient_high (default: "red")</p></td>
     </tr>
     </table>
 
