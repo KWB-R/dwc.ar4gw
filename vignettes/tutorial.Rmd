@@ -260,6 +260,7 @@ kwb.python::conda_py_install(env_name = "flopy_dev",
                                          py = "https://github.com/modflowpy/flopy/zipball/develop/801a41705d8979c6982fb8c2955d56225d971218"))
 
 ```
+### Use flopy-dev
 
 ```{r install_flopy_dev_ghactions, eval = FALSE}
 
