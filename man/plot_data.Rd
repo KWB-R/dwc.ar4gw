@@ -4,12 +4,18 @@
 \alias{plot_data}
 \title{plot_data}
 \usage{
-plot_data(mulitarray, title = "")
+plot_data(mulitarray, title = "", value_min = NULL, value_max = NULL)
 }
 \arguments{
 \item{mulitarray}{multidimensional MODFLOW array}
 
 \item{title}{title for plot}
+
+\item{value_min}{minimum value. All smaller values will be excluded from dataset
+(default: NULL)}
+
+\item{value_max}{maximum value. All larger values will be excluded from dataset
+(default: NULL)}
 }
 \value{
 plot all Modflow layers

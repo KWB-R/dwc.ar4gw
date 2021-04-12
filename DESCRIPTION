@@ -21,8 +21,9 @@ Imports:
     dplyr,
     ggplot2,
     magrittr,
-    reshape,
-    reticulate
+    reshape2,
+    reticulate,
+    rlang
 Suggests: 
     covr,
     knitr,

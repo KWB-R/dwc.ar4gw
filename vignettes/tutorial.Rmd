@@ -270,15 +270,18 @@ flopy_dev <- reticulate::import("flopy", convert = TRUE)
 
 kstpkper <- c(0,0)
 
+# reticulate::py_help(object = flopy_dev$utils$postprocessing$get_extended_budget)
 budget_array <- flopy_dev$utils$postprocessing$get_extended_budget(
       cbcfile = paths$binary_cell.by.cell, kstpkper = kstpkper) 
 
+# reticulate::py_help(object = flopy_dev$utils$binaryfile$HeadFile)
 heads <- flopy_dev$utils$binaryfile$HeadFile(filename = paths$binary_heads,
                                          verbose = TRUE)
 
+# reticulate::py_help(object = heads$get_data)
 heads_array <- heads$get_data(kstpkper = kstpkper)
 
-
+# reticulate::py_help(object = flopy_dev$modflow$mf$Modflow$load)
 mf <- flopy_dev$modflow$mf$Modflow$load(f = paths$mf_nam, 
                                     model_ws = dirname(paths$mf_nam),
                                     load_only = c("dis", "bas6", "bcf6"),
@@ -383,4 +386,12 @@ summary(as.vector(flow_velocity$vy[layer,,]))
 summary(as.vector(flow_velocity$vz[layer,,]))
 #    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
 #-5533.12    -3.01    -1.62    -4.79    -0.66  1749.48    92155
+
+
+### Plot data of all layers
+dwc.ar4gw::plot_data(heads_array, title = "Heads")
+dwc.ar4gw::plot_data(flow_velocity$vx, title = "Flow velocity x")
+dwc.ar4gw::plot_data(flow_velocity$vy, title = "Flow velocity y")
+dwc.ar4gw::plot_data(flow_velocity$vz, title = "Flow velocity z")
+
 ```
