@@ -6,6 +6,8 @@
 #' (default: NULL)
 #' @param value_max maximum value. All larger values will be excluded from dataset
 #' (default: NULL)
+#' @param fill_gradient_low fill_gradient_low (default: "grey90")
+#' @param fill_gradient_high fill_gradient_high (default: "red")
 #' @return plot all Modflow layers
 #' @export
 #' @import ggplot2
@@ -15,7 +17,10 @@
 plot_data <- function(mulitarray,
                       title = "",
                       value_min = NULL,
-                      value_max = NULL) {
+                      value_max = NULL,
+                      fill_gradient_low = "grey90",
+                      fill_gradient_high = "red"
+                      ) {
 
 if(title == "") {
   title <- deparse(substitute(multiarray))
@@ -37,13 +42,11 @@ if(!is.null(value_max)) {
 
 
 longData %>%
-#  dplyr::filter(value > min(longData$value, na.rm = TRUE),
-#                value < max(longData$value, na.rm = TRUE)) %>%
-#  dplyr::filter(layer == 1) %>%
 ggplot2::ggplot(ggplot2::aes_string(x = "col", y = "row")) +
   ggplot2::geom_raster(ggplot2::aes_string(fill = "value")) +
   ggplot2::facet_wrap(~layer) +
-  ggplot2::scale_fill_gradient(low="grey90", high="red") +
+  ggplot2::scale_fill_gradient(low = fill_gradient_low,
+                               high = fill_gradient_high) +
   labs(x = "row", y = "column", title = title) +
   ggplot2::theme_bw() +
   ggplot2::theme(axis.text.x = ggplot2::element_text(size=9, angle=0, vjust=0.3),

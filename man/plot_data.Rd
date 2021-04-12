@@ -4,7 +4,14 @@
 \alias{plot_data}
 \title{plot_data}
 \usage{
-plot_data(mulitarray, title = "", value_min = NULL, value_max = NULL)
+plot_data(
+  mulitarray,
+  title = "",
+  value_min = NULL,
+  value_max = NULL,
+  fill_gradient_low = "grey90",
+  fill_gradient_high = "red"
+)
 }
 \arguments{
 \item{mulitarray}{multidimensional MODFLOW array}
@@ -16,6 +23,10 @@ plot_data(mulitarray, title = "", value_min = NULL, value_max = NULL)
 
 \item{value_max}{maximum value. All larger values will be excluded from dataset
 (default: NULL)}
+
+\item{fill_gradient_low}{fill_gradient_low (default: "grey90")}
+
+\item{fill_gradient_high}{fill_gradient_high (default: "red")}
 }
 \value{
 plot all Modflow layers
