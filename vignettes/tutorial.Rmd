@@ -341,8 +341,9 @@ summary(as.vector(specific_discharge$qz[layer,,]))
 # Set effective porosity for each layer
 # layer 1: 0.3 (unconfined)
 # layer 2-8: 0.0001 (confined)
-effective_porosity <- c(0.3, rep(0.0001, 7))
 n_layers <- mf$nlay
+n_layers_confined <- n_layers - 1
+effective_porosity <- c(0.3, rep(0.0001, n_layers_confined))
 
 flow_velocity <- setNames(lapply(specific_discharge, function(q) {
   for (layer in seq_len(n_layers)) {
