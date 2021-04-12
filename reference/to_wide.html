@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • dwc.ar4gw</title>
+<title>to_wide — to_wide • dwc.ar4gw</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="to_wide — to_wide" />
+<meta property="og:description" content="to_wide" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -120,66 +121,38 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>to_wide</h1>
+    <small class="dont-index">Source: <a href='https://github.com/KWB-R/dwc.ar4gw/blob/master/R/to_wide.R'><code>R/to_wide.R</code></a></small>
+    <div class="hidden name"><code>to_wide.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>to_wide</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>to_wide</span><span class='op'>(</span><span class='va'>multiarray_long</span>, parameter <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="get_extended_budget.html">get_extended_budget()</a></code> </p>
-        </td>
-        <td><p>get_extended_budget</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="import_flopy.html">import_flopy()</a></code> </p>
-        </td>
-        <td><p>Import "flopy" Python Package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_data.html">plot_data()</a></code> </p>
-        </td>
-        <td><p>plot_data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="to_long.html">to_long()</a></code> </p>
-        </td>
-        <td><p>Helper function: convert multiarray to long format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="to_wide.html">to_wide()</a></code> </p>
-        </td>
-        <td><p>to_wide</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>multiarray_long</th>
+      <td><p>multiarray in long format (as retrieved by
+<code><a href='to_long.html'>to_long</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>parameter</th>
+      <td><p>prefix to use for parameter in wide format (default: "")</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>tibble with column, row, parameter_layer1-n</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
