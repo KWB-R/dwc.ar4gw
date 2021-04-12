@@ -265,7 +265,7 @@ kwb.python::conda_py_install(env_name = "flopy_dev",
 ```{r install_flopy_dev_ghactions, eval = FALSE}
 
 reticulate::use_miniconda(condaenv = "flopy_dev", required = TRUE)
-flopy_dev <- reticulate::import("flopy", convert = TRUE)
+flopy_dev <- reticulate::import("flopy_dev", convert = TRUE)
 
 
 kstpkper <- c(0,0)
