@@ -18,18 +18,19 @@ License: MIT + file LICENSE
 URL: https://github.com/KWB-R/dwc.ar4gw
 BugReports: https://github.com/KWB-R/dwc.ar4gw/issues
 Imports: 
+    dplyr,
+    ggplot2,
     magrittr,
+    reshape,
     reticulate
 Suggests: 
     covr,
-    dplyr,
     knitr,
     kwb.nextcloud,
     kwb.python,
     kwb.utils,
     remotes,
     rmarkdown,
-    usethis,
     stringr
 VignetteBuilder: 
     knitr
