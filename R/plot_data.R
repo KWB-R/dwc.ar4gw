@@ -10,8 +10,8 @@
 to_long <- function(multiarray) {
   reshape2::melt(multiarray) %>%
     dplyr::rename(layer = "Var1",
-                  column = "Var2",
-                  row = "Var3")
+                  row = "Var2",
+                  column = "Var3")
 
 }
 
