@@ -173,7 +173,7 @@ kwb.nextcloud::download_files(href = mf_files$href,
 
 Install latest `flopy` release from `conda` [https://anaconda.org/conda-forge/flopy](https://anaconda.org/conda-forge/flopy)-
 
-```{r install_flopy_ghactions, eval = is_ghactions}
+```{r install_flopy_ghactions, eval = FALSE}
 
 ### create an environment "flopy" for installing "flopy" 
 kwb.python::conda_py_install(env_name = "flopy", 
@@ -184,7 +184,7 @@ kwb.python::conda_py_install(env_name = "flopy",
 
 ### Use flopy
 
-```{r use_flopy, eval = TRUE}
+```{r use_flopy, eval = FALSE}
 #reticulate::use_miniconda("flopy", required = TRUE)
 # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
@@ -252,17 +252,16 @@ Install  `flopy development` version from GitHub [https://github.com/modflowpy/f
 
 
 
-```{r install_flopy_dev_install_ghactions, eval = FALSE}
+```{r install_flopy_dev_install_ghactions, eval = is_ghactions}
 
 ### create an environment "flopy" for installing "flopy" 
 kwb.python::conda_py_install(env_name = "flopy_dev", 
                              pkgs = list(conda = c("python", "pyshp"), 
-                                         py = "https://github.com/modflowpy/flopy/zipball/develop/19bc25ead4f00144ec2491a7e1121ad3d0b4ea23"))
-
+                                         py = "https://github.com/modflowpy/flopy/zipball/develop/801a41705d8979c6982fb8c2955d56225d971218"))
 
 ```
 
-```{r install_flopy_dev_ghactions, eval = FALSE}
+```{r install_flopy_dev_ghactions, eval = TRUE}
 
 reticulate::use_miniconda(condaenv = "flopy_dev", required = TRUE)
 flopy_dev <- reticulate::import("flopy", convert = TRUE)
