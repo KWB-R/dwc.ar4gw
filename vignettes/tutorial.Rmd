@@ -266,7 +266,6 @@ kwb.python::conda_py_install(env_name = "flopy_dev",
 
 reticulate::use_miniconda(condaenv = "flopy_dev", required = TRUE)
 flopy_dev <- reticulate::import("flopy", convert = TRUE)
-# reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 
 
 kstpkper <- c(0,0)
@@ -291,6 +290,7 @@ mf <- flopy_dev$modflow$mf$Modflow$load(f = paths$mf_nam,
 # reticulate::py_help(object = flopy$utils$postprocessing$get_specific_discharge)
 # Works now with flopy 3.3.4 release candidate: 
 # https://github.com/modflowpy/flopy/blob/b6092cbc94039750de309a832c7f554751782ac1/flopy/utils/postprocessing.py#L606
+# reticulate::py_help(object = flopy_dev$utils$postprocessing$get_specific_discharge)
 specific_discharge <- setNames(flopy_dev$utils$postprocessing$get_specific_discharge(
   vectors = budget_array, 
   model = mf, 
