@@ -388,6 +388,18 @@ summary(as.vector(flow_velocity$vz[layer,,]))
 #-5533.12    -3.01    -1.62    -4.79    -0.66  1749.48    92155
 
 
+### Print as tidy data.frame 
+flow_velocity_vx_long <- dwc.ar4gw::to_long(flow_velocity$vx)
+head(flow_velocity_vx_long)
+#  layer col row value
+#1     1   1   1   NaN
+#2     2   1   1   NaN
+#3     3   1   1   NaN
+#4     4   1   1   NaN
+#5     5   1   1   NaN
+#6     6   1   1   NaN
+
+
 ### Plot data of all layers
 dwc.ar4gw::plot_data(heads_array, title = "Heads")
 dwc.ar4gw::plot_data(flow_velocity$vx, title = "Flow velocity x")
