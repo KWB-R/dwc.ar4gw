@@ -1,14 +1,14 @@
 #' Helper function: convert multiarray to long format
 #'
-#' @param mulitarray multidimensional MODFLOW array
+#' @param multiarray multidimensional MODFLOW array
 #'
 #' @return convert multiarray to long format with columns:
 #' layer, col, row, value
 #' @export
 #' @importFrom reshape2 melt
 #' @importFrom dplyr rename
-to_long <- function(mulitarray) {
-  reshape2::melt(mulitarray) %>%
+to_long <- function(multiarray) {
+  reshape2::melt(multiarray) %>%
     dplyr::rename(layer = "Var1",
                   col = "Var2",
                   row = "Var3")
@@ -17,7 +17,7 @@ to_long <- function(mulitarray) {
 
 #' plot_data
 #'
-#' @param mulitarray multidimensional MODFLOW array
+#' @param multiarray multidimensional MODFLOW array
 #' @param title title for plot
 #' @param value_min minimum value. All smaller values will be excluded from dataset
 #' (default: NULL)
@@ -29,7 +29,7 @@ to_long <- function(mulitarray) {
 #' @export
 #' @import ggplot2
 #' @importFrom rlang .data
-plot_data <- function(mulitarray,
+plot_data <- function(multiarray,
                       title = "",
                       value_min = NULL,
                       value_max = NULL,

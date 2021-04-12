@@ -5,7 +5,7 @@
 \title{plot_data}
 \usage{
 plot_data(
-  mulitarray,
+  multiarray,
   title = "",
   value_min = NULL,
   value_max = NULL,
@@ -14,7 +14,7 @@ plot_data(
 )
 }
 \arguments{
-\item{mulitarray}{multidimensional MODFLOW array}
+\item{multiarray}{multidimensional MODFLOW array}
 
 \item{title}{title for plot}
 
