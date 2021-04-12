@@ -173,7 +173,7 @@ kwb.nextcloud::download_files(href = mf_files$href,
 
 Install latest `flopy` release from `conda` [https://anaconda.org/conda-forge/flopy](https://anaconda.org/conda-forge/flopy)-
 
-```{r install_flopy_ghactions, eval = FALSE}
+```{r install_flopy_ghactions, eval = is_ghactions}
 
 ### create an environment "flopy" for installing "flopy" 
 kwb.python::conda_py_install(env_name = "flopy", 
@@ -184,7 +184,7 @@ kwb.python::conda_py_install(env_name = "flopy",
 
 ### Use flopy
 
-```{r use_flopy, eval = FALSE}
+```{r use_flopy, eval = is_ghactions}
 #reticulate::use_miniconda("flopy", required = TRUE)
 # reticulate::py_help(object = flopy$utils$postprocessing$get_extended_budget)
 extended_budget <- dwc.ar4gw::get_extended_budget(cbcfile = paths$binary_cell.by.cell) 
@@ -252,7 +252,7 @@ Install  `flopy development` version from GitHub [https://github.com/modflowpy/f
 
 
 
-```{r install_flopy_dev_install_ghactions, eval = is_ghactions}
+```{r install_flopy_dev_install_ghactions, eval = FALSE}
 
 ### create an environment "flopy" for installing "flopy" 
 kwb.python::conda_py_install(env_name = "flopy_dev", 
@@ -261,7 +261,7 @@ kwb.python::conda_py_install(env_name = "flopy_dev",
 
 ```
 
-```{r install_flopy_dev_ghactions, eval = TRUE}
+```{r install_flopy_dev_ghactions, eval = FALSE}
 
 reticulate::use_miniconda(condaenv = "flopy_dev", required = TRUE)
 flopy_dev <- reticulate::import("flopy", convert = TRUE)
@@ -299,24 +299,47 @@ specific_discharge <- setNames(flopy_dev$utils$postprocessing$get_specific_disch
 )
 # stats for all layers
 summary(specific_discharge$qx)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -3837       0       0       0       0    1340  742928 
 summary(specific_discharge$qy)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -3967       0       0       0       0    1744  743864 
 summary(specific_discharge$qz)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#   -0.6     0.0     0.0     0.0     0.0     0.2  737240
+
 #top layer
 layer <- 1
 summary(as.vector(specific_discharge$qx[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#   -0.6     0.0     0.0     0.0     0.0     0.2  737240
 summary(as.vector(specific_discharge$qy[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -1.55   -0.03    0.00   -0.01    0.01    1.84   92983 
 summary(as.vector(specific_discharge$qz[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -0.30    0.00    0.00    0.00    0.00    0.09   92155
+
 # layer2
 layer <- 2
 summary(as.vector(specific_discharge$qx[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -0.23    0.00    0.00    0.00    0.00    0.28   92866
 summary(as.vector(specific_discharge$qy[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -0.23    0.00    0.00    0.00    0.00    0.19   92983
 summary(as.vector(specific_discharge$qz[layer,,]))
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -0.55    0.00    0.00    0.00    0.00    0.17   92155 
+
+
 ### Calculate flow velocity 
 # Set effective porosity for each layer
 # layer 1: 0.3 (unconfined)
 # layer 2-8: 0.0001 (confined)
 effective_porosity <- c(0.3, rep(0.0001, 7))
 n_layers <- mf$nlay
+
 flow_velocity <- setNames(lapply(specific_discharge, function(q) {
   for (layer in seq_len(n_layers)) {
     q[layer,,] <- q[layer,,] / effective_porosity[layer]
@@ -324,19 +347,39 @@ flow_velocity <- setNames(lapply(specific_discharge, function(q) {
   q
 }), nm = c("vx", "vy", "vz")
 )
+
 # stats for all layers
 summary(flow_velocity$vx)
+#     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+#-38372483       -24         0       -29         8  13398450    742928 
 summary(flow_velocity$vy)
+#     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
+#-39667686       -24         0       -44        11  17443782    743864 
 summary(flow_velocity$vz)
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#-5858.8    -1.2    -0.2    -1.5     0.0  1749.5  737240 
+
 #top layer
 layer <- 1
 summary(as.vector(flow_velocity$vx[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -5.44   -0.06   -0.01   -0.02    0.01    5.89   92866
 summary(as.vector(flow_velocity$vy[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -5.16   -0.08   -0.01   -0.03    0.02    6.13   92983 
 summary(as.vector(flow_velocity$vz[layer,,])) 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+#  -1.01    0.00    0.00    0.00    0.00    0.29   92155
+
 # layer2
 layer <- 2
 summary(as.vector(flow_velocity$vx[layer,,])) 
+#    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+#-2288.47   -42.81    -0.34   -23.69     0.42  2842.85    92866 
 summary(as.vector(flow_velocity$vy[layer,,])) 
+#    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+#-2337.17   -43.87    -0.36   -42.00     1.08  1852.84    92983 
 summary(as.vector(flow_velocity$vz[layer,,]))
-
+#    Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+#-5533.12    -3.01    -1.62    -4.79    -0.66  1749.48    92155
 ```
