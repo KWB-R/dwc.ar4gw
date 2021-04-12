@@ -399,6 +399,23 @@ head(flow_velocity_vx_long)
 #5     5   1   1   NaN
 #6     6   1   1   NaN
 
+flow_velocity_vx_wide <- dwc.ar4gw::to_wide(flow_velocity_vx_long, 
+                                            parameter = "vx")
+flow_velocity_vx_wide
+## A tibble: 534,640 x 10
+#   column   row  vx_1  vx_2  vx_3  vx_4  vx_5  vx_6  vx_7  vx_8
+#    <int> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+# 1      1     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 2      2     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 3      3     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 4      4     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 5      5     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 6      6     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 7      7     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 8      8     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+# 9      9     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+#10     10     1   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+## ... with 534,630 more rows
 
 ### Plot data of all layers
 dwc.ar4gw::plot_data(heads_array, title = "Heads")
